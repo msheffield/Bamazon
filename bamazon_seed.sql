@@ -25,4 +25,17 @@ CREATE TABLE departments (
 
 USE bamazon;
 
-INSERT INTO products
+INSERT INTO products (product_name, department_name, price, stock_quantity, product_sales)
+VALUES ("Charger", "Electronics", 15, 100, 0);
+
+INSERT INTO products (product_name, department_name, price, stock_quantity, product_sales)
+VALUES ("Baseball Cap", "Clothing", 10, 50, 0);
+
+INSERT INTO products (product_name, department_name, price, stock_quantity, product_sales)
+VALUES ("Toothpaste", "Toiletries", 7, 200, 0);
+
+INSERT INTO products (product_name, department_name, price, stock_quantity, product_sales)
+VALUES ("Hydroflask", "Outdoor", 45, 40, 0);
+
+INSERT INTO products (product_name, department_name, price, stock_quantity, product_sales)
+VALUES ("Phone Case", "Electronics", 25, 75, 0);
