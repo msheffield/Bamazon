@@ -1,4 +1,5 @@
 var mysql = require("mysql");
+var inquirer = require("inquirer");
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -17,11 +18,12 @@ connection.connect(function (err) {
 
     printItems();
 
-    connection.end();
+    promptUser();
+
 });
 
 
-function printItems(artist) {
+function printItems() {
     connection.query(
         "SELECT * FROM products",
         function (err, res) {
@@ -35,6 +37,73 @@ function printItems(artist) {
                     "-----------------------------"
                 )
             })
+        }
+    )
+}
+
+function promptUser() {
+    inquirer.prompt([
+        {
+            name: "id",
+            message: "Input the ID of the product you wish to order",
+            type: "number"
+        },
+        {
+            name: "quantity",
+            message: "Input the quantity you would like to purchase",
+            type: "number"
+        }
+    ]).then(function (response) {
+
+        getItem(response.id, response.quantity);
+
+
+    })
+}
+
+function getItem(id, quantity) {
+    let stock_item_quantity = 0;
+
+    connection.query(
+        "SELECT * FROM products WHERE item_id = ?",
+        id,
+        function (err, res) {
+            if (err) throw err;
+
+            console.log(res);
+            stock_item_quantity = res[0].stock_quantity;
+
+
+            console.log("stock item = " + stock_item_quantity);
+
+            if (stock_item_quantity < quantity) {
+                console.log("Insufficient quantity");
+            }
+            else {
+                let new_quantity = stock_item_quantity - quantity;
+
+                updateQuantity(id, new_quantity);
+            }
+        }
+    )
+}
+
+
+function updateQuantity(id, new_quantity) {
+    connection.query(
+        "UPDATE products SET ? WHERE ?",
+        [
+            {
+                stock_quantity: new_quantity
+            },
+            {
+                item_id: id
+            }
+        ],
+        function (err, res) {
+            if (err) throw err;
+
+            console.log(res)
         }
     )
 }
