@@ -89,6 +89,7 @@ function printInventory() {
         }
     )
 
+    console.log("Press any key to continue");
     checkDone();
 }
 
@@ -110,6 +111,7 @@ function printLowInventory() {
         }
     )
 
+    console.log("Press any key to continue");
     checkDone();
 }
 
@@ -167,6 +169,7 @@ function updateQuantity(id, new_quantity) {
         }
     )
 
+    console.log("Press any key to continue");
     checkDone();
 }
 
@@ -212,6 +215,7 @@ function addNewProduct() {
             }
         )
 
+        console.log("Press any key to continue");
         checkDone();
     })
 }
