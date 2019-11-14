@@ -56,4 +56,6 @@ INSERT INTO products (product_name, department_name, price, stock_quantity, prod
 VALUES ("Garlic Crusher", "Kitchen", 25, 50, 0);
 
 
-SELECT * FROM products WHERE item_id = 1;
+SELECT * FROM products;
+
+SELECT * FROM departments;

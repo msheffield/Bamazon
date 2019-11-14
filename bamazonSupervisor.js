@@ -61,3 +61,39 @@ function checkDone() {
     })
 }
 
+
+function viewProductSalesByDepartment() {
+    // This is as far as I got, I'll keep trying to figure this out!
+
+    console.log("This feature is still in development");
+    checkDone();
+}
+
+
+function CreateNewDepartment() {
+    inquirer.prompt([
+        {
+            name: "department_name",
+            message: "Enter the department name",
+            type: "input"
+        }
+    ]).then(function (response) {
+        connection.query(
+            "INSERT INTO departments SET ?",
+            [
+                {
+                    department_name: response.department_name,
+                    over_head_costs: 0
+                }
+            ],
+            function (err, res) {
+                if (err) throw err;
+
+                console.log("Added department: " + response.product_name);
+            }
+        )
+    }
+    )
+
+    checkDone();
+}
