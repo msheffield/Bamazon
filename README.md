@@ -9,3 +9,11 @@ The manager view allows the user to control inventory. The manager can view all 
 
 ### Supervisor
 This view is more overhead and gives the user the ability to analyze the database by department. The supervisor can view all overhead costs, product costs and total profit by department. New departments can be created from this view as well.
+
+(NOTE: Supervisor mode is still in development. Users cannot use the overhead view currently.)
+
+
+## Modules
+Make sure to install the following modules below using npm install:
+* mysql
+* inquirer
