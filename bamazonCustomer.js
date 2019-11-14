@@ -13,14 +13,52 @@ var connection = mysql.createConnection({
     database: "bamazon"
 });
 
-connection.connect(function (err) {
-    if (err) throw err;
+mainMenu();
 
-    printItems();
+function mainMenu() {
+    var options = ["View Products for Sale", "Purchase Item"];
 
-    promptUser();
+    inquirer.prompt([
+        {
+            name: "option",
+            message: "Menu Options",
+            type: "list",
+            choices: options
+        }
+    ]).then(function (response) {
+        console.log(response);
 
-});
+        switch (response.option) {
+            case options[0]:
+                printItems();
+                break;
+
+            case options[1]:
+                promptUser();
+                break;
+
+            default:
+                break;
+        }
+    })
+}
+
+function checkDone() {
+    inquirer.prompt([
+        {
+            name: "done",
+            message: "Are you done?",
+            type: "confirm"
+        }
+    ]).then(function (response) {
+        if (response.done) {
+            connection.end()
+        }
+        else {
+            mainMenu();
+        }
+    })
+}
 
 
 function printItems() {
@@ -39,6 +77,9 @@ function printItems() {
             })
         }
     )
+    
+    console.log("Press any key to continue");
+    checkDone();
 }
 
 function promptUser() {
@@ -112,4 +153,7 @@ function updateItem(id, new_quantity, new_sales) {
             console.log(res)
         }
     )
+    
+    console.log("Press any key to continue");
+    checkDone();
 }

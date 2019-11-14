@@ -31,7 +31,6 @@ function mainMenu() {
 
         switch (response.option) {
             case options[0]:
-                console.log("Displaying Inventory");
                 printInventory();
                 break;
 
