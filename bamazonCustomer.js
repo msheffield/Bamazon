@@ -63,6 +63,8 @@ function promptUser() {
 
 function getItem(id, quantity) {
     let stock_item_quantity = 0;
+    let stock_item_sales = 0;
+    let price = 0;
 
     connection.query(
         "SELECT * FROM products WHERE item_id = ?",
@@ -72,7 +74,10 @@ function getItem(id, quantity) {
 
             console.log(res);
             stock_item_quantity = res[0].stock_quantity;
+            stock_item_sales = res[0].product_sales;
+            price = res[0].price;
 
+            let new_sales = (price * quantity) + stock_item_sales;
 
             console.log("stock item = " + stock_item_quantity);
 
@@ -82,19 +87,20 @@ function getItem(id, quantity) {
             else {
                 let new_quantity = stock_item_quantity - quantity;
 
-                updateQuantity(id, new_quantity);
+                updateItem(id, new_quantity, new_sales);
             }
         }
     )
 }
 
 
-function updateQuantity(id, new_quantity) {
+function updateItem(id, new_quantity, new_sales) {
     connection.query(
         "UPDATE products SET ? WHERE ?",
         [
             {
-                stock_quantity: new_quantity
+                stock_quantity: new_quantity,
+                product_sales: new_sales
             },
             {
                 item_id: id
